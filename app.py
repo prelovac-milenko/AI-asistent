@@ -1,19 +1,16 @@
-# pip install spacy google-generativeai flask-cors pymupdf  python -m spacy download en_core_web_md
-
 from flask import Flask, request, jsonify
-import fitz  
+import fitz
 import google.generativeai as genai
 from flask_cors import CORS
 import spacy  # Za semantičko prepoznavanje ključnih reči u pitanju
 
-#Gemini API ključ
+# Gemini API ključ
 genai.configure(api_key="AIzaSyBpkgGt-WuxjAve6ZAZcNBryCAZUBWjSHE")
 
-
-nlp = spacy.load("en_core_web_md")  
+nlp = spacy.load("en_core_web_md")
 
 app = Flask(__name__)
-CORS(app)  
+CORS(app)
 
 
 # funkcija za pretragu teksta u PDF-u
@@ -21,7 +18,6 @@ def search_text_in_pdf(pdf_path, query):
     doc = fitz.open(pdf_path)
     results = []
 
-    
     query_doc = nlp(query)
     query_keywords = [token.text for token in query_doc if not token.is_stop and not token.is_punct]
 
@@ -29,14 +25,13 @@ def search_text_in_pdf(pdf_path, query):
         text = page.get_text("text")
         page_doc = nlp(text)
 
-        
         if any(keyword in text.lower() for keyword in query_keywords):
             results.append(text)
 
     return "\n".join(results) if results else None
 
 
-# funkcija za slanje upita 
+# funkcija za slanje upita
 def ask_gemini(context_text, query):
     prompt = f"Koristi sledeći deo dokumenta da odgovoriš na pitanje:\n\n{context_text}\n\nPitanje: {query}"
     model = genai.GenerativeModel("gemini-1.5-flash")
