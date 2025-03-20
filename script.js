@@ -7,7 +7,7 @@ function posaljiPitanje() {
         return;
     }
 
-    // salje pitanje backendu
+    // Salje pitanje backendu
     fetch("http://127.0.0.1:5000/ask", {
         method: "POST",
         headers: {
@@ -17,7 +17,12 @@ function posaljiPitanje() {
     })
     .then(response => response.json())
     .then(data => {
-        odgovorElement.innerText = " " + data.answer;
+        // Prikazivanje odgovora iz backend-a
+        if (data.answer) {
+            odgovorElement.innerText = data.answer;
+        } else {
+            odgovorElement.innerText = "⚠️ Nema odgovora na ovo pitanje.";
+        }
     })
     .catch(error => {
         odgovorElement.innerText = "⚠️ Greška pri slanju zahteva.";
