@@ -101,7 +101,7 @@ for type_id in range(1, 4):
 
 # --- AI Chat Backend --- #
 
-genai.configure(api_key="AIzaSyDgbc1U-p8IWvQ4IflTJcNkpIQwPpfEsUs")  # Postavi API ključ za Gemini
+genai.configure(api_key="xxxxxxxxxxxxx")  # Postavi API ključ za Gemini
 
 app = Flask(__name__)
 CORS(app)
