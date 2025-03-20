@@ -1,5 +1,5 @@
 # AI-asistent 
-
+<h1>test2.py se oslanja na AI osim pretrage Json fajlova , moze da prepozna pitanje i bez tacnog pogodka kao sto pise u JSON-u</h1>
 ##
 
 
