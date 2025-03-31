@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>BLBerza AI Asistent</title>
+    <link rel="stylesheet" href="/style.css">
+</head>
+<body>
+<h1>BL Berza AI Asistent</h1>
+  <h2>Emitenti</h2>
+  <div class="container">
+    <input type="text" id="searchInput" placeholder="Pretraži emitente po nazivu, oznaci ili gradu...">
+    <div id="dropdown" class="dropdown" style="display: none;"></div>
+    <button id="prepareButton" disabled>Pripremi podatke</button>
+    <div id="statusBox"></div>
+  </div>
+
+  <div class="container">
+    <p>Analiza se odnosi na podatke iz godina: <strong>2020, 2021, 2022 i 2023</strong>.</p>
+  </div>
+
+  <h2>Pitanje</h2>
+  <div class="container">
+    <textarea id="questionInput" rows="4" placeholder="Postavi pitanje..." style="width: 100%;" disabled></textarea>
+    <button id="askButton" disabled>Postavi pitanje</button>
+  </div>
+
+  <div class="container">
+    <h3>Odgovor</h3>
+    <div id="answerBox" style="white-space: pre-wrap; background-color: #1e1e1e; padding: 1rem; border-radius: 4px;"></div>
+  </div>
+
+  <script src="/script.js"></script>
+</body>
+</html>

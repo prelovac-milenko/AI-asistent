@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>BLBerza AI Asistent</title>
+    <link rel="stylesheet" href="/style.css">
+</head>
+<body>
+<h1>BL Berza AI Asistent</h1>
+  <h2>Emitenti</h2>
+  <div class="container">
+    <input type="text" id="searchInput" placeholder="Pretraži emitente po nazivu, oznaci ili gradu...">
+    <div id="dropdown" class="dropdown" style="display: none;"></div>
+  </div>
+
+  <script>
+    let emitenti = [];
+
+    fetch('/api/emitenti')
+      .then(res => res.json())
+      .then(data => {
+        emitenti = data.emittenti;
+      });
+
+    const input = document.getElementById('searchInput');
+    const dropdown = document.getElementById('dropdown');
+
+    input.addEventListener('input', () => {
+      const query = input.value.toLowerCase();
+      dropdown.innerHTML = '';
+
+      if (query.length < 1) {
+        dropdown.style.display = 'none';
+        return;
+      }
+
+      const filtered = emitenti.filter(e =>
+        e.oznaka.toLowerCase().includes(query) ||
+        e.naziv.toLowerCase().includes(query) ||
+        e.grad.toLowerCase().includes(query)
+      );
+
+      if (filtered.length > 0) {
+        dropdown.style.display = 'block';
+        filtered.slice(0, 10).forEach(e => {
+          const div = document.createElement('div');
+          div.textContent = `${e.oznaka} – ${e.naziv} (${e.grad})`;
+          div.onclick = () => {
+            input.value = `${e.oznaka} – ${e.naziv}`;
+            dropdown.style.display = 'none';
+            console.log('Izabran emitent:', e);
+          };
+          dropdown.appendChild(div);
+        });
+      } else {
+        dropdown.style.display = 'none';
+      }
+    });
+
+    document.addEventListener('click', (e) => {
+      if (!e.target.closest('.container')) {
+        dropdown.style.display = 'none';
+      }
+    });
+  </script>
+</body>
+</html>

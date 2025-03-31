@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Emitenti App</title>
+</head>
+<body>
+  <h1>Emitenti Web Aplikacija</h1>
+  <button onclick="testAPI()">Testiraj Backend</button>
+  <p id="result"></p>
+
+  <script>
+    function testAPI() {
+      fetch("/api/ping")
+        .then(res => res.json())
+        .then(data => {
+          document.getElementById("result").innerText = data.message;
+        })
+        .catch(err => {
+          document.getElementById("result").innerText = "Greška u konekciji";
+          console.error(err);
+        });
+    }
+  </script>
+</body>
+</html>
